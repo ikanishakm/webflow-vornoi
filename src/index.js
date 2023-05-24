@@ -1,18 +1,23 @@
 // ThreeJS and Third-party deps
 import * as THREE from "three"
-import * as dat from 'dat.gui'
+import * as dat from "dat.gui"
 import Stats from "three/examples/jsm/libs/stats.module"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
 // Core boilerplate code deps
-import { createCamera, getDefaultUniforms, createRenderer, runApp } from "./core-utils"
+import {
+  createCamera,
+  getDefaultUniforms,
+  createRenderer,
+  runApp,
+} from "./core-utils"
 
 // Other deps
-import vertexShader from './shaders/vertexShader.glsl'
-import fragmentShader from './shaders/fragmentShader.glsl'
+import vertexShader from "./shaders/vertexShader.glsl"
+import fragmentShader from "./shaders/fragmentShader.glsl"
 
 global.THREE = THREE
-THREE.ColorManagement.enabled = true;
+THREE.ColorManagement.enabled = true
 
 /**************************************************
  * 0. Tweakable parameters for the scene
@@ -22,7 +27,6 @@ const uniforms = {
   u_bFactor: { value: 3.0 },
   u_pcurveHandle: { value: 1.5 },
 }
-
 
 /**************************************************
  * 1. Initialize core threejs components
@@ -54,19 +58,20 @@ let app = {
     this.controls = new OrbitControls(camera, renderer.domElement)
     this.controls.enableDamping = true
     this.controls.autoRotate = true
+    this.controls.enableZoom = false
     this.controls.autoRotateSpeed = 0.4
 
     const sphereGeometry = new THREE.SphereGeometry(1, 64, 64)
     const sphereMaterial = new THREE.ShaderMaterial({
       uniforms: uniforms,
       vertexShader: vertexShader,
-      fragmentShader: fragmentShader
+      fragmentShader: fragmentShader,
     })
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
     scene.add(sphere)
 
     // GUI controls
-    const gui = new dat.GUI()
+    // const gui = new dat.GUI()
     // gui.add(uniforms.u_bFactor, "value", 0.0, 5.0, 0.1).name("Blueness Factor")
     // gui.add(uniforms.u_pcurveHandle, "value", 0.0, 8.0, 0.1).name("Pcurve Handle")
 
@@ -82,7 +87,7 @@ let app = {
   updateScene(interval, elapsed) {
     this.controls.update()
     this.stats1.update()
-  }
+  },
 }
 
 /**************************************************
