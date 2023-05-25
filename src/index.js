@@ -24,8 +24,8 @@ THREE.ColorManagement.enabled = true
  *************************************************/
 const uniforms = {
   ...getDefaultUniforms(),
-  u_bFactor: { value: 3.0 },
-  u_pcurveHandle: { value: 1.5 },
+  u_bFactor: { value: 0.0 },
+  u_pcurveHandle: { value: 0.8 },
 }
 
 /**************************************************
@@ -55,11 +55,11 @@ let camera = createCamera(45, 1, 1000, { x: 0, y: 0, z: 3 })
 let app = {
   async initScene() {
     // OrbitControls
-    this.controls = new OrbitControls(camera, renderer.domElement)
-    this.controls.enableDamping = true
-    this.controls.autoRotate = true
-    this.controls.enableZoom = false
-    this.controls.autoRotateSpeed = 0.4
+    // this.controls = new OrbitControls(camera, renderer.domElement)
+    // this.controls.enableDamping = true
+    // this.controls.autoRotate = true
+    // this.controls.enableZoom = false
+    // this.controls.autoRotateSpeed = 0.4
 
     const sphereGeometry = new THREE.SphereGeometry(1, 64, 64)
     const sphereMaterial = new THREE.ShaderMaterial({
@@ -67,13 +67,16 @@ let app = {
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
     })
-    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
-    scene.add(sphere)
+    this.sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
+
+    scene.add(this.sphere)
 
     // GUI controls
     // const gui = new dat.GUI()
     // gui.add(uniforms.u_bFactor, "value", 0.0, 5.0, 0.1).name("Blueness Factor")
-    // gui.add(uniforms.u_pcurveHandle, "value", 0.0, 8.0, 0.1).name("Pcurve Handle")
+    // gui
+    //   .add(uniforms.u_pcurveHandle, "value", 0.0, 8.0, 0.1)
+    //   .name("Pcurve Handle")
 
     // Stats - show fps
     this.stats1 = new Stats()
@@ -85,8 +88,9 @@ let app = {
   // @param {number} interval - time elapsed between 2 frames
   // @param {number} elapsed - total time elapsed since app start
   updateScene(interval, elapsed) {
-    this.controls.update()
-    this.stats1.update()
+    // this.controls.update()
+    // this.sphere.rotation.y += Math.sin(elapsed * 4) * 0.01
+    // this.stats1.update()
   },
 }
 
